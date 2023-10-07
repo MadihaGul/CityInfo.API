@@ -26,7 +26,7 @@ builder.Services.AddControllers(
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddCors();
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
 #if DEBUG
 builder.Services.AddTransient<IMailService,LocalMailService>();
@@ -51,6 +51,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors(p => p.WithOrigins("http://localhost:3000")
+.AllowAnyHeader().AllowAnyMethod());
 
 app.UseHttpsRedirection();
 app.UseRouting();
